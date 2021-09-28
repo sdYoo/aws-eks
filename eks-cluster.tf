@@ -30,8 +30,8 @@ module "eks" {
       subnets = module.vpc.public_subnets
       instance_type = var.frontend_node_instance_type
 
-      launch_template_id      = aws_launch_template.backend.id
-      launch_template_version = aws_launch_template.backend.default_version
+      launch_template_id      = aws_launch_template.frontend.id
+      launch_template_version = aws_launch_template.frontend.default_version
 
       k8s_labels = {
         Environment = "test"

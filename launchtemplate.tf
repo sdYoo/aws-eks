@@ -26,7 +26,7 @@ resource "aws_launch_template" "frontend" {
   }
 
   network_interfaces {
-    associate_public_ip_address = false
+    associate_public_ip_address = true
     delete_on_termination       = true
     security_groups             = [module.eks.worker_security_group_id]
   }
@@ -101,7 +101,7 @@ resource "aws_launch_template" "backend" {
   }
 
   network_interfaces {
-    associate_public_ip_address = false
+    associate_public_ip_address = true
     delete_on_termination       = true
     security_groups             = [module.eks.worker_security_group_id]
   }
