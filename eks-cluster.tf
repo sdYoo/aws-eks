@@ -14,41 +14,44 @@ module "eks" {
     Environment = "test eks"
   }
   
-  workers_group_defaults = {
-    root_volume_type = "gp2"
+  # Managed Node Groups
+  node_groups_defaults = {
+    ami_type  = "AL2_x86_64"
+    disk_size = 50
   }
 
   node_groups = {
 
     frontend = {
-        name             = "frontend"
-        desired_capacity = 1
-        max_capacity     = 2
-        min_capacity     = 1
-        subnets = module.vpc.public_subnets
-        instance_type = var.frontend_node_instance_type
-
-        launch_template_id      = aws_launch_template.frontend.id
-        launch_template_version = aws_launch_template.frontend.default_version
-
-        additional_tags = {
-          CustomTag = "frontend node group"
-        }
-    }
-      
-    backend = {
-      name             = "backend"
       desired_capacity = 1
       max_capacity     = 2
       min_capacity     = 1
-      subnets = module.vpc.public_subnets
-      instance_type = var.backend_node_instance_type
 
-      launch_template_id      = aws_launch_template.backend.id
-      launch_template_version = aws_launch_template.backend.default_version
+      instance_types = var.backend_node_instance_type
+
+      #launch_template_id      = aws_launch_template.backend.id
+      #launch_template_version = aws_launch_template.backend.default_version
+
+      k8s_labels = {
+        Environment = "test"
+        GithubRepo  = "terraform-aws-eks"
+        GithubOrg   = "terraform-aws-modules"
+      }
 
       additional_tags = {
         CustomTag = "backend node group"
+      }
+
+      taints = [
+        {
+          key    = "dedicated"
+          value  = "gpuGroup"
+          effect = "NO_SCHEDULE"
+        }
+      ]
+
+      update_config = {
+        max_unavailable_percentage = 50 # or set `max_unavailable`
       }
     }
   }

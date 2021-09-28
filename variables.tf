@@ -23,13 +23,13 @@ variable "key_pair_name" {
 
 variable "frontend_node_instance_type" {
   # Smallest recommended, where ~1.1Gb of 2Gb memory is available for the Kubernetes pods after ‘warming up’ Docker, Kubelet, and OS
-  default = "m5.large"
+  default = "t3.large"
   type    = string
 }
 
 
 variable "backend_node_instance_type" {
   # Smallest recommended, where ~1.1Gb of 2Gb memory is available for the Kubernetes pods after ‘warming up’ Docker, Kubelet, and OS
-  default = "m5.large"
+  default = "t3.large"
   type    = string
 }

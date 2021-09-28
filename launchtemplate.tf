@@ -1,4 +1,3 @@
-
 resource "aws_launch_template" "frontend" {
   name_prefix            = format("${var.vpc_name}-frontend-")
   description            = "frontend Launch-Template"
@@ -75,8 +74,8 @@ resource "aws_launch_template" "frontend" {
 
 
 resource "aws_launch_template" "backend" {
-  name_prefix            = format("${var.vpc_name}-BACKEND-")
-  description            = "BACKEND Launch-Template"
+  name_prefix            = format("${var.vpc_name}-backend-")
+  description            = "backend Launch-Template"
   update_default_version = true
   key_name = var.key_pair_name
   
@@ -125,7 +124,7 @@ resource "aws_launch_template" "backend" {
     resource_type = "instance"
 
     tags = {
-      CustomTag = "EKS Cluster"
+      CustomTag = "EKS backend Launch-Template"
     }
   }
 
@@ -134,13 +133,13 @@ resource "aws_launch_template" "backend" {
     resource_type = "volume"
 
     tags = {
-      CustomTag = "EKS Cluster"
+      CustomTag = "EKS backend Launch-Template"
     }
   }
 
   # Tag the LT itself
   tags = {
-    CustomTag = "EKS Cluster"
+    CustomTag = "EKS backend Launch-Template"
   }
 
   lifecycle {
