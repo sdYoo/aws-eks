@@ -1,4 +1,3 @@
-
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
   
@@ -29,7 +28,7 @@ module "eks" {
       min_capacity     = 1
       
       subnets = module.vpc.public_subnets
-      instance_types = var.backend_node_instance_type
+      instance_type = var.frontend_node_instance_type
 
       launch_template_id      = aws_launch_template.backend.id
       launch_template_version = aws_launch_template.backend.default_version
@@ -50,7 +49,7 @@ module "eks" {
       desired_capacity = 1
       max_capacity     = 2
       min_capacity     = 1
-      
+
       subnets = module.vpc.public_subnets
       instance_type = var.backend_node_instance_type
 
