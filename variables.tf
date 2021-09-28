@@ -3,6 +3,12 @@ variable "region" {
   description = "AWS region"
 }
 
+variable "vpc_azs" {
+    type        = list
+    default     = ["ap-northeast-2a", "ap-northeast-2c"]
+    description = "vpc azs"
+}
+
 variable "vpc_name" {
     type        = string
     default     = "rapa-eks-vpc"
