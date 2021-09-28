@@ -31,7 +31,7 @@ data "aws_eks_cluster_auth" "eks_cluster" {
 }
 
 data "template_file" "launch_template_userdata" {
-  template = file(".terraform/modules/eks/templates/userdata.sh.tpl")
+  template = file("./templates/userdata.sh.tpl")
 
   vars = {
     cluster_name        = format("${var.vpc_name}+%s", "EKS")
