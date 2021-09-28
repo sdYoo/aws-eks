@@ -11,7 +11,7 @@ module "eks" {
 #  subnets         = ["subnet-0d0ec569cd2b0f53a", "subnet-0c877ea507377303a"]
 
   tags = {
-    Environment = "test rapa eks"
+    Environment = "test eks"
   }
   
   workers_group_defaults = {
@@ -23,7 +23,7 @@ module "eks" {
     frontend = {
         name             = "frontend"
         desired_capacity = 1
-        max_capacity     = 15
+        max_capacity     = 2
         min_capacity     = 1
         subnets = module.vpc.public_subnets
         instance_type = var.frontend_node_instance_type
@@ -39,7 +39,7 @@ module "eks" {
     backend = {
       name             = "backend"
       desired_capacity = 1
-      max_capacity     = 15
+      max_capacity     = 2
       min_capacity     = 1
       subnets = module.vpc.public_subnets
       instance_type = var.backend_node_instance_type
@@ -52,12 +52,4 @@ module "eks" {
       }
     }
   }
-}
-
-data "aws_eks_cluster" "eks_cluster" {
-  name = module.eks.cluster_id
-}
-
-data "aws_eks_cluster_auth" "eks_cluster" {
-  name = module.eks.cluster_id
 }
