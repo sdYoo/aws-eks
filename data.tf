@@ -27,16 +27,3 @@ data "aws_eks_cluster" "eks_cluster" {
 data "aws_eks_cluster_auth" "eks_cluster" {
   name = module.eks.cluster_id
 }
-
-data "template_file" "launch_template_userdata" {
-  template = file("./templates/userdata.sh.tpl")
-
-  vars = {
-    cluster_name        = format("${var.vpc_name}+%s", "EKS")
-    endpoint            = module.eks.cluster_endpoint
-    cluster_auth_base64 = module.eks.cluster_certificate_authority_data
-
-    bootstrap_extra_args = ""
-    kubelet_extra_args   = ""
-  }
-}
