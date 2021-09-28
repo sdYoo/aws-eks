@@ -44,5 +44,21 @@ module "eks" {
         CustomTag = "backend node group"
       }
     }
+
+    backend = {
+      name             = "backend"
+      desired_capacity = 1
+      max_capacity     = 2
+      min_capacity     = 1
+      subnets = module.vpc.public_subnets
+      instance_type = var.backend_node_instance_type
+
+      launch_template_id      = aws_launch_template.backend.id
+      launch_template_version = aws_launch_template.backend.default_version
+
+      additional_tags = {
+        CustomTag = "backend node group"
+      }
+    }
   }
 }
