@@ -18,20 +18,44 @@ module "eks" {
     root_volume_type = "gp2"
   }
 
-  worker_groups = [
-    {
-      name                          = "worker-group-1"
-      instance_type                 = "t2.small"
-      additional_userdata           = "echo foo bar"
-      asg_max_size                  = 2
-      asg_desired_capacity          = 2
-      additional_security_group_ids = [aws_security_group.worker_group_sg.id]
+  node_groups = {
+
+    frontend = {
+        name             = "frontend"
+        desired_capacity = 1
+        max_capacity     = 15
+        min_capacity     = 1
+        subnets = module.vpc.public_subnets
+        instance_type = var.frontend_node_instance_type
+
+        launch_template_id      = aws_launch_template.frontend.id
+        launch_template_version = aws_launch_template.frontend.default_version
+
+        additional_tags = {
+          CustomTag = "frontend node group"
+        }
     }
-  ]
+      
+    backend = {
+      name             = "backend"
+      desired_capacity = 1
+      max_capacity     = 15
+      min_capacity     = 1
+      subnets = module.vpc.public_subnets
+      instance_type = var.backend_node_instance_type
+
+      launch_template_id      = aws_launch_template.backend.id
+      launch_template_version = aws_launch_template.backend.default_version
+
+      additional_tags = {
+        CustomTag = "backend node group"
+      }
+    }
+  }
 }
 
 data "aws_eks_cluster" "eks_cluster" {
-  name = module.eks.cluster_id
+  name = modteule.eks.cluster_id
 }
 
 data "aws_eks_cluster_auth" "eks_cluster" {

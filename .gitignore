@@ -1,6 +1,6 @@
 #manually ignored
 .terraform/
 *.hcl
-*.backup
 *.rbac.yaml
 *.tfstate
+*.tfstate.backup
