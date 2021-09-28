@@ -50,6 +50,7 @@ module "eks" {
       desired_capacity = 1
       max_capacity     = 2
       min_capacity     = 1
+      
       subnets = module.vpc.public_subnets
       instance_type = var.backend_node_instance_type
 
