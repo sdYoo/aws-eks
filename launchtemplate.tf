@@ -19,8 +19,6 @@ resource "aws_launch_template" "frontend" {
     }
   }
 
-  #instance_type = var.frontend_node_instance_type
-
   monitoring {
     enabled = true
   }
@@ -42,7 +40,6 @@ resource "aws_launch_template" "frontend" {
   # user_data = base64encode(
   #   data.template_file.launch_template_userdata.rendered,
   # )
-
 
   # Supplying custom tags to EKS instances is another use-case for LaunchTemplates
   tag_specifications {
@@ -117,7 +114,6 @@ resource "aws_launch_template" "backend" {
   # user_data = base64encode(
   #   data.template_file.launch_template_userdata.rendered,
   # )
-
 
   # Supplying custom tags to EKS instances is another use-case for LaunchTemplates
   tag_specifications {

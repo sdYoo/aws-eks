@@ -1,0 +1,29 @@
+[1mdiff --git a/launchtemplate.tf b/launchtemplate.tf[m
+[1mindex a9f010d..5b4ee9d 100644[m
+[1m--- a/launchtemplate.tf[m
+[1m+++ b/launchtemplate.tf[m
+[36m@@ -19,8 +19,6 @@[m [mresource "aws_launch_template" "frontend" {[m
+     }[m
+   }[m
+ [m
+[31m-  #instance_type = var.frontend_node_instance_type[m
+[31m-[m
+   monitoring {[m
+     enabled = true[m
+   }[m
+[36m@@ -43,7 +41,6 @@[m [mresource "aws_launch_template" "frontend" {[m
+   #   data.template_file.launch_template_userdata.rendered,[m
+   # )[m
+ [m
+[31m-[m
+   # Supplying custom tags to EKS instances is another use-case for LaunchTemplates[m
+   tag_specifications {[m
+     resource_type = "instance"[m
+[36m@@ -118,7 +115,6 @@[m [mresource "aws_launch_template" "backend" {[m
+   #   data.template_file.launch_template_userdata.rendered,[m
+   # )[m
+ [m
+[31m-[m
+   # Supplying custom tags to EKS instances is another use-case for LaunchTemplates[m
+   tag_specifications {[m
+     resource_type = "instance"[m
